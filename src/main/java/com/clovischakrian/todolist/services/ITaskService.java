@@ -11,9 +11,8 @@ import java.util.UUID;
 public interface ITaskService {
     public UUID createTask(NewTaskDto newTaskDto);
     public UUID updateTask(UUID taskId, UpdatedTaskDto updatedTaskDto);
-    public UUID doneTask(UUID taksId);
-    public UUID undoneTask(UUID taskId);
+    public UUID doneUndoneTask(UUID taskId);
     public UUID removeTask(UUID taskId);
     public List<Task> listTasks();
-    public Task detailTask(UUID taskId) throws ValidationException;
+    public Task detailTask(UUID taskId);
 }

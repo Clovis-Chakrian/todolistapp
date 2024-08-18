@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -39,13 +38,17 @@ public class TaskService implements ITaskService {
     }
 
     @Override
-    public UUID doneTask(UUID taksId) {
-        return null;
-    }
+    public UUID doneUndoneTask(UUID taskId) {
+        Task task = this.taskRepository.findById(taskId).orElseThrow(() -> new ValidationException("A task selecionada para concluir/desconcluir não foi encontrada."));
 
-    @Override
-    public UUID undoneTask(UUID taskId) {
-        return null;
+        if (task.done) {
+            task.undoneTask();
+            return taskId;
+        }
+
+        task.doneTask();
+
+        return task.taskId;
     }
 
     @Override
@@ -63,7 +66,7 @@ public class TaskService implements ITaskService {
     }
 
     @Override
-    public Task detailTask(UUID taskId) throws ValidationException {
+    public Task detailTask(UUID taskId) {
         return this.taskRepository.findById(taskId).orElseThrow(() -> new ValidationException("A task selecionada para detalhar não foi encontrada."));
     }
 }

@@ -50,6 +50,11 @@ public class TodoController {
         return this.apiResponse(this.taskService.updateTask(taskId, updatedTaskDto));
     }
 
+    @PatchMapping("/{taskId}")
+    public ResponseEntity<ApiResponse<UUID>> doneUndoneTask(@RequestParam UUID taskId) {
+        return this.apiResponse(this.taskService.doneUndoneTask(taskId));
+    }
+
     @DeleteMapping("/{taskId}")
     public ResponseEntity<ApiResponse<UUID>> deleteTask(@RequestParam UUID taskId) {
         return this.apiResponse(this.taskService.removeTask(taskId));
