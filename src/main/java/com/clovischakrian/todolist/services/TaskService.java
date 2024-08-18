@@ -55,6 +55,8 @@ public class TaskService implements ITaskService {
     public UUID removeTask(UUID taskId) {
         Task task = this.taskRepository.findById(taskId).orElseThrow(() -> new ValidationException("A task selecionada para excluir não foi encontrada."));
 
+        if (!task.done) throw new ValidationException("Só é possível deletar uma task que já foi concluída.");
+
         this.taskRepository.delete(task);
 
         return task.getTaskId();
