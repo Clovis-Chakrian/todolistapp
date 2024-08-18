@@ -6,11 +6,13 @@ import com.clovischakrian.todolist.entities.Task;
 import com.clovischakrian.todolist.repositories.ITaskRepository;
 import jakarta.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+@Service
 public class TaskService implements ITaskService {
     @Autowired
     private ITaskRepository taskRepository;
@@ -46,7 +48,7 @@ public class TaskService implements ITaskService {
     }
 
     @Override
-    public Task detailTask(UUID taskId) {
-        return null;
+    public Task detailTask(UUID taskId) throws ValidationException {
+        return this.taskRepository.findById(taskId).orElseThrow(() -> new ValidationException("A task selecionada para detalhar não foi encontrada."));
     }
 }
