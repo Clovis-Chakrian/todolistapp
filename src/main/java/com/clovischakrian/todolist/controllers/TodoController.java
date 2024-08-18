@@ -5,10 +5,7 @@ import com.clovischakrian.todolist.entities.Task;
 import com.clovischakrian.todolist.services.ITaskService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,22 +20,26 @@ public class TodoController {
         this.taskService = taskService;
     }
 
-    public<T> ResponseEntity<ApiResponse<T>> ApiResponse(T data) {
+    public<T> ResponseEntity<ApiResponse<T>> apiResponse(T data) {
         return new ResponseEntity<ApiResponse<T>>(new ApiResponse<T>(true, data, null), HttpStatus.OK);
     }
 
-    public<T> ResponseEntity<ApiResponse<T>> ApiResponse(T data, HttpStatus statusCode) {
+    public<T> ResponseEntity<ApiResponse<T>> apiResponse(T data, HttpStatus statusCode) {
         return new ResponseEntity<ApiResponse<T>>(new ApiResponse<T>(true, data, null), statusCode);
     }
 
     @GetMapping()
-    public ResponseEntity<ApiResponse<List<Task>>> ObterTasks() {
-        return this.ApiResponse(this.taskService.listTasks());
+    public ResponseEntity<ApiResponse<List<Task>>> obterTasks() {
+        return this.apiResponse(this.taskService.listTasks());
     }
 
     @GetMapping("/{taskId}")
-    public ResponseEntity<ApiResponse<Task>> ObterTask(@RequestParam UUID taskId) {
-        return this.ApiResponse(this.taskService.detailTask(taskId));
+    public ResponseEntity<ApiResponse<Task>> obterTask(@RequestParam UUID taskId) {
+        return this.apiResponse(this.taskService.detailTask(taskId));
     }
 
+    @DeleteMapping("/{taskId}")
+    public ResponseEntity<ApiResponse<UUID>> deleteTask(@RequestParam UUID taskId) {
+        return this.apiResponse(this.taskService.removeTask(taskId));
+    }
 }

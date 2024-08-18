@@ -39,7 +39,11 @@ public class TaskService implements ITaskService {
 
     @Override
     public UUID removeTask(UUID taskId) {
-        return null;
+        Task task = this.taskRepository.findById(taskId).orElseThrow(() -> new ValidationException("A task selecionada para excluir não foi encontrada."));
+
+        this.taskRepository.delete(task);
+
+        return task.getTaskId();
     }
 
     @Override
