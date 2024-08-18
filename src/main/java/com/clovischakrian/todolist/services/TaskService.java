@@ -19,7 +19,11 @@ public class TaskService implements ITaskService {
 
     @Override
     public UUID createTask(NewTaskDto newTaskDto) {
-        return null;
+        Task task = new Task(newTaskDto);
+
+        this.taskRepository.save(task);
+
+        return task.taskId;
     }
 
     @Override

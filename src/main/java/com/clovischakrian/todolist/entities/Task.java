@@ -1,5 +1,6 @@
 package com.clovischakrian.todolist.entities;
 
+import com.clovischakrian.todolist.dtos.NewTaskDto;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
@@ -44,6 +45,11 @@ public class Task {
     @PreUpdate()
     public void onUpdate() {
         this.updatedAt = new Date();
+    }
+
+    public Task(NewTaskDto newTaskDto) {
+        this.title = newTaskDto.getTitle();
+        this.description = newTaskDto.getDescription();
     }
 
     public void doneTask() {
