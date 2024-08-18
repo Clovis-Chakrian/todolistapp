@@ -1,4 +1,10 @@
 package com.clovischakrian.todolist.dtos;
 
-public record UpdatedTaskDto(String title, String description) {
+import jakarta.validation.constraints.NotBlank;
+
+public class UpdatedTaskDto {
+    @NotBlank(message = "O título da tarefa é uma informação obrigatória.")
+    private String title;
+
+    private String description;
 }

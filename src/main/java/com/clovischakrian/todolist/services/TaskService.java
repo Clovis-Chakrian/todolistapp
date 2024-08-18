@@ -4,9 +4,11 @@ import com.clovischakrian.todolist.dtos.NewTaskDto;
 import com.clovischakrian.todolist.dtos.UpdatedTaskDto;
 import com.clovischakrian.todolist.entities.Task;
 import com.clovischakrian.todolist.repositories.ITaskRepository;
+import jakarta.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public class TaskService implements ITaskService {
@@ -40,7 +42,7 @@ public class TaskService implements ITaskService {
 
     @Override
     public List<Task> listTasks() {
-        return List.of();
+        return this.taskRepository.findAll();
     }
 
     @Override
