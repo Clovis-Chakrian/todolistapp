@@ -10,7 +10,7 @@ import java.util.UUID;
 
 public interface ITaskService {
     public UUID createTask(NewTaskDto newTaskDto);
-    public UUID updateTask(UpdatedTaskDto updatedTaskDto);
+    public UUID updateTask(UUID taskId, UpdatedTaskDto updatedTaskDto);
     public UUID doneTask(UUID taksId);
     public UUID undoneTask(UUID taskId);
     public UUID removeTask(UUID taskId);

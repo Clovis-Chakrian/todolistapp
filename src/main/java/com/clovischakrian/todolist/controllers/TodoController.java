@@ -2,6 +2,7 @@ package com.clovischakrian.todolist.controllers;
 
 import com.clovischakrian.todolist.dtos.ApiResponse;
 import com.clovischakrian.todolist.dtos.NewTaskDto;
+import com.clovischakrian.todolist.dtos.UpdatedTaskDto;
 import com.clovischakrian.todolist.entities.Task;
 import com.clovischakrian.todolist.services.ITaskService;
 import org.springframework.http.HttpStatus;
@@ -42,6 +43,11 @@ public class TodoController {
     @PostMapping()
     public ResponseEntity<ApiResponse<UUID>> createTask(@RequestBody NewTaskDto newTaskDto) {
         return this.apiResponse(this.taskService.createTask(newTaskDto));
+    }
+
+    @PutMapping("/{taskId}")
+    public ResponseEntity<ApiResponse<UUID>> updateTask(@RequestParam UUID taskId, @RequestBody UpdatedTaskDto updatedTaskDto) {
+        return this.apiResponse(this.taskService.updateTask(taskId, updatedTaskDto));
     }
 
     @DeleteMapping("/{taskId}")

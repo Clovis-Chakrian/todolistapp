@@ -27,8 +27,15 @@ public class TaskService implements ITaskService {
     }
 
     @Override
-    public UUID updateTask(UpdatedTaskDto updatedTaskDto) {
-        return null;
+    public UUID updateTask(UUID taskId, UpdatedTaskDto updatedTaskDto) {
+        Task task = this.taskRepository.findById(taskId).orElseThrow(() -> new ValidationException("A task selecionada para atualizar não foi encontrada."));
+
+        task.setTitle(updatedTaskDto.getTitle());
+        task.setDescription(updatedTaskDto.getDescription());
+
+        this.taskRepository.save(task);
+
+        return task.taskId;
     }
 
     @Override
