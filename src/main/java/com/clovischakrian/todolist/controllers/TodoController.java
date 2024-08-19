@@ -7,6 +7,7 @@ import com.clovischakrian.todolist.entities.Task;
 import com.clovischakrian.todolist.services.ITaskService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -36,12 +37,12 @@ public class TodoController {
     }
 
     @GetMapping("/{taskId}")
-    public ResponseEntity<ApiResponse<Task>> getTaskById(@RequestParam UUID taskId) {
+    public ResponseEntity<ApiResponse<Task>> getTaskById(@PathVariable UUID taskId) {
         return this.apiResponse(this.taskService.detailTask(taskId));
     }
 
     @PostMapping()
-    public ResponseEntity<ApiResponse<UUID>> createTask(@RequestBody NewTaskDto newTaskDto) {
+    public ResponseEntity<ApiResponse<UUID>> createTask(@Validated @RequestBody NewTaskDto newTaskDto) {
         return this.apiResponse(this.taskService.createTask(newTaskDto));
     }
 
@@ -50,13 +51,13 @@ public class TodoController {
         return this.apiResponse(this.taskService.updateTask(taskId, updatedTaskDto));
     }
 
-    @PatchMapping("/{taskId}")
-    public ResponseEntity<ApiResponse<UUID>> doneUndoneTask(@RequestParam UUID taskId) {
+    @PatchMapping("/{taskId}/done-undone")
+    public ResponseEntity<ApiResponse<UUID>> doneUndoneTask(@PathVariable UUID taskId) {
         return this.apiResponse(this.taskService.doneUndoneTask(taskId));
     }
 
     @DeleteMapping("/{taskId}")
-    public ResponseEntity<ApiResponse<UUID>> deleteTask(@RequestParam UUID taskId) {
+    public ResponseEntity<ApiResponse<UUID>> deleteTask(@PathVariable UUID taskId) {
         return this.apiResponse(this.taskService.removeTask(taskId));
     }
 }

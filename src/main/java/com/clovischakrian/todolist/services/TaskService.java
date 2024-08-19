@@ -43,10 +43,11 @@ public class TaskService implements ITaskService {
 
         if (task.done) {
             task.undoneTask();
-            return taskId;
+        } else {
+            task.doneTask();
         }
 
-        task.doneTask();
+        this.taskRepository.save(task);
 
         return task.taskId;
     }

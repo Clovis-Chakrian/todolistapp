@@ -12,8 +12,8 @@ import java.util.List;
 
 @ControllerAdvice
 public class ExceptionHandlerController {
-    @ExceptionHandler(ValidationException.class)
-    public ResponseEntity<ApiResponse> validationExceptionHandler(ValidationException exception) {
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ApiResponse> validationExceptionHandler(Exception exception) {
         List<String> erros = new ArrayList<>();
         erros.add(exception.getMessage());
 
